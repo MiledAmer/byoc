@@ -2,6 +2,7 @@
 
 import { Star, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
   {
@@ -66,49 +67,59 @@ export default function ProductGrid() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
-            <div
+            <Link
               key={product.id}
+              href={`/products/${product.id}`}
               className="group border-neon/30 hover:border-neon hover:shadow-neon/50 relative overflow-hidden rounded-lg border bg-black/50 backdrop-blur transition hover:shadow-lg"
             >
-              {/* Hover glow */}
-              <div className="bg-neon absolute inset-0 opacity-0 mix-blend-screen transition group-hover:opacity-10" />
+              <div
+                key={product.id}
+                className="group border-neon/30 hover:border-neon hover:shadow-neon/50 relative overflow-hidden rounded-lg border bg-black/50 backdrop-blur transition hover:shadow-lg"
+              >
+                {/* Hover glow */}
+                <div className="bg-neon absolute inset-0 opacity-0 mix-blend-screen transition group-hover:opacity-10" />
 
-              <div className="relative h-64 overflow-hidden md:h-72">
-                <Image
-                  width={200}
-                  height={200}
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  className="h-full w-full object-cover transition group-hover:scale-110"
-                />
-              </div>
+                <div className="relative h-64 overflow-hidden md:h-72">
+                  <Image
+                    width={200}
+                    height={200}
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition group-hover:scale-110"
+                  />
+                </div>
 
-              <div className="relative p-4">
-                <h3 className="mb-2 text-lg font-bold text-white">
-                  {product.name}
-                </h3>
+                <div className="relative p-4">
+                  <h3 className="mb-2 text-lg font-bold text-white">
+                    {product.name}
+                  </h3>
 
-                <div className="mb-3 flex items-center gap-2">
-                  <div className="flex gap-1">
-                    {Array.from({ length: product.rating }).map((_, i) => (
-                      <Star key={i} size={14} className="fill-neon text-neon" />
-                    ))}
+                  <div className="mb-3 flex items-center gap-2">
+                    <div className="flex gap-1">
+                      {Array.from({ length: product.rating }).map((_, i) => (
+                        <Star
+                          key={i}
+                          size={14}
+                          className="fill-neon text-neon"
+                        />
+                      ))}
+                    </div>
+                    <span className="text-xs text-white/40">
+                      ({product.rating}/5)
+                    </span>
                   </div>
-                  <span className="text-xs text-white/40">
-                    ({product.rating}/5)
-                  </span>
-                </div>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-neon text-2xl font-black">
-                    {product.price}
-                  </span>
-                  <button className="bg-neon/20 hover:bg-neon text-neon border-neon rounded-lg border p-2 transition hover:text-black">
-                    <ShoppingCart size={18} />
-                  </button>
+                  <div className="flex items-center justify-between">
+                    <span className="text-neon text-2xl font-black">
+                      {product.price}
+                    </span>
+                    <button className="bg-neon/20 hover:bg-neon text-neon border-neon rounded-lg border p-2 transition hover:text-black">
+                      <ShoppingCart size={18} />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
