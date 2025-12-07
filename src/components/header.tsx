@@ -3,9 +3,12 @@
 import { useState } from "react"
 import { ShoppingBag, Menu, X } from "lucide-react"
 import Link from "next/link"
+import { useCart } from "@/lib/store"
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { items } = useCart();
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <header className="relative z-50 border-b border-neon/20 bg-black/80 backdrop-blur-md">
@@ -39,7 +42,7 @@ export default function Header() {
           <button className="relative">
             <ShoppingBag size={20} className="text-neon" />
             <span className="absolute -right-2 -top-2 h-4 w-4 rounded-full bg-neon text-xs font-bold text-black flex items-center justify-center">
-              0
+              {cartCount}
             </span>
           </button>
 

@@ -5,7 +5,7 @@ import type { Product, ProductVariant } from '@/sanity/types/products'
 export interface CartItem {
   id: string
   product: Product
-  variant: ProductVariant
+  variant: ProductVariant 
   quantity: number
 }
 

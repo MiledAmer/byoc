@@ -1,20 +1,15 @@
-"use client";
 
-import { useState } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { products, categories } from "@/lib/products";
-import { Star, ShoppingCart } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
 
-export default function ProductsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+import ProductCard from "@/components/product-card";
+import { getFilteredProducts } from "@/sanity/sanity-utils";
 
-  const filteredProducts =
-    selectedCategory === "All"
-      ? products
-      : products.filter((p) => p.category === selectedCategory);
+export default async function ProductsPage() {
+  // const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const data = await getFilteredProducts();
+  const filteredProducts = data.products;
 
   return (
     <div className="text-foreground min-h-screen bg-black">
@@ -36,7 +31,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Category Filter */}
-      <section className="border-neon/20 sticky top-0 z-40 border-b bg-black/90 px-4 py-4 backdrop-blur-md">
+      {/* <section className="border-neon/20 sticky top-0 z-40 border-b bg-black/90 px-4 py-4 backdrop-blur-md">
         <div className="mx-auto max-w-7xl">
           <div className="flex gap-2 overflow-x-auto">
             {categories.map((category) => (
@@ -54,7 +49,7 @@ export default function ProductsPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Products Grid */}
       <section className="relative min-h-screen bg-black px-4 py-16">
@@ -69,54 +64,7 @@ export default function ProductsPage() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map((product) => (
-              <Link
-                key={product.id}
-                href={`/products/${product.id}`}
-                className="group border-neon/30 hover:border-neon hover:shadow-neon/50 relative overflow-hidden rounded-lg border bg-black/50 backdrop-blur transition hover:shadow-lg"
-              >
-                {/* Hover glow */}
-                <div className="bg-neon absolute inset-0 opacity-0 mix-blend-screen transition group-hover:opacity-10" />
-
-                <div className="relative h-64 overflow-hidden md:h-72">
-                  <Image
-                    width={200}
-                    height={288}
-                    src={product.image || "/placeholder.svg"}
-                    alt={product.name}
-                    className="h-full w-full object-cover transition group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="relative p-4">
-                  <h3 className="mb-2 text-lg font-bold text-white">
-                    {product.name}
-                  </h3>
-
-                  <div className="mb-3 flex items-center gap-2">
-                    <div className="flex gap-1">
-                      {Array.from({ length: product.rating }).map((_, i) => (
-                        <Star
-                          key={i}
-                          size={14}
-                          className="fill-neon text-neon"
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs text-white/40">
-                      ({product.rating}/5)
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-neon text-2xl font-black">
-                      {product.priceFormatted}
-                    </span>
-                    <div className="bg-neon/20 text-neon border-neon group-hover:bg-neon rounded-lg border p-2 transition group-hover:text-black">
-                      <ShoppingCart size={18} />
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </div>
