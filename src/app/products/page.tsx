@@ -1,14 +1,19 @@
-
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 import ProductCard from "@/components/product-card";
-import { getFilteredProducts } from "@/sanity/sanity-utils";
+import {
+  getCategoriesWithSubcategories,
+  getFilteredProducts,
+} from "@/sanity/sanity-utils";
+import CategoriesSection from "@/components/categories-section";
+import { Suspense } from "react";
 
 export default async function ProductsPage() {
   // const [selectedCategory, setSelectedCategory] = useState("All");
 
   const data = await getFilteredProducts();
+  const categories = await getCategoriesWithSubcategories();
   const filteredProducts = data.products;
 
   return (
@@ -31,25 +36,9 @@ export default async function ProductsPage() {
       </section>
 
       {/* Category Filter */}
-      {/* <section className="border-neon/20 sticky top-0 z-40 border-b bg-black/90 px-4 py-4 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex gap-2 overflow-x-auto">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`rounded-lg px-6 py-2 text-sm font-bold tracking-wider whitespace-nowrap uppercase transition ${
-                  selectedCategory === category
-                    ? "bg-neon shadow-neon/50 text-black shadow-lg"
-                    : "border-neon/30 hover:text-neon hover:border-neon border bg-black text-white/70"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section> */}
+      <Suspense>
+        <CategoriesSection categories={categories} />
+      </Suspense>
 
       {/* Products Grid */}
       <section className="relative min-h-screen bg-black px-4 py-16">
