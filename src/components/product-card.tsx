@@ -6,13 +6,14 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "sonner";
 
-export default function ProductCard({
-  product,
-}: {
-  product: Product
-}) {
+export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
+  const handleAddToCart = () => {
+    addItem(product, product.selectedVariant, 1);
+    toast.success("Added to cart!");
+  };
   return (
     <Link
       key={product._id}
@@ -30,23 +31,21 @@ export default function ProductCard({
           <Image
             width={200}
             height={200}
-            src={product.image?.asset ? urlFor(product.image)?.url() ?? "/black-baseball-cap-neon-trim.jpg" : "/black-baseball-cap-neon-trim.jpg"}
+            src={
+              product.image?.asset
+                ? (urlFor(product.image)?.url() ??
+                  "/black-baseball-cap-neon-trim.jpg")
+                : "/black-baseball-cap-neon-trim.jpg"
+            }
             alt={product.title.en}
             className="h-full w-full object-cover transition group-hover:scale-110"
           />
         </div>
 
         <div className="relative p-4">
-          <h3 className="mb-2 text-lg font-bold text-white">{product.title.en}</h3>
-
-          {/* <div className="mb-3 flex items-center gap-2">
-            <div className="flex gap-1">
-              {Array.from({ length: product.rating }).map((_, i) => (
-                <Star key={i} size={14} className="fill-neon text-neon" />
-              ))}
-            </div>
-            <span className="text-xs text-white/40">({product.rating}/5)</span>
-          </div> */}
+          <h3 className="mb-2 text-lg font-bold text-white">
+            {product.title.en}
+          </h3>
 
           <div className="flex items-center justify-between">
             <span className="text-neon text-2xl font-black">
@@ -54,7 +53,7 @@ export default function ProductCard({
             </span>
             <button
               className="bg-neon/20 hover:bg-neon text-neon border-neon rounded-lg border p-2 transition hover:text-black"
-              onClick={() => addItem(product, product.selectedVariant, 1)}
+              onClick={handleAddToCart}
             >
               <ShoppingCart size={18} />
             </button>

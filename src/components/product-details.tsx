@@ -8,25 +8,29 @@ import Image from "next/image";
 import type { Product, ProductVariant } from "@/sanity/types/products";
 import { useCart } from "@/lib/store";
 import { urlFor } from "@/sanity/sanity-utils";
+import { toast } from "sonner";
+import ProductCard from "./product-card";
 
-export default function ProductDetails({ product }: { product: Product }) {
+export default function ProductDetails({
+  product,
+  relatedProducts,
+}: {
+  product: Product;
+  relatedProducts: Product[];
+}) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [showSuccess, setShowSuccess] = useState(false);
+
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(
     product.selectedVariant ?? product.variants?.[0],
   );
   const handleAddToCart = () => {
     if (selectedVariant) {
       addItem(product, selectedVariant, quantity);
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
+      toast.success("Added to cart!");
     }
   };
 
-  //   const relatedProducts = products
-  //     .filter((p) => p.category === product.category && p.id !== product.id)
-  //     .slice(0, 3);
   return (
     <div className="text-foreground min-h-screen bg-black">
       <Header />
@@ -121,9 +125,12 @@ export default function ProductDetails({ product }: { product: Product }) {
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className={
-                  "flex w-full items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider uppercase transition"
-                }
+                disabled={!selectedVariant}
+                className={`bg-neon flex w-full items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider text-black uppercase transition ${
+                  !selectedVariant
+                    ? "cursor-not-allowed bg-white/10 text-white/30"
+                    : "bg-neon hover:shadow-neon/50 text-black hover:shadow-2xl"
+                }`}
               >
                 <>
                   <ShoppingCart size={24} />
@@ -136,7 +143,7 @@ export default function ProductDetails({ product }: { product: Product }) {
       </section>
 
       {/* Related Products */}
-      {/* {relatedProducts.length > 0 && (
+      {relatedProducts.length > 0 && (
         <section className="border-neon/20 relative border-t px-4 py-16">
           <div className="relative z-10 mx-auto max-w-7xl">
             <h2 className="mb-8 text-4xl font-black tracking-tighter md:text-5xl">
@@ -146,37 +153,12 @@ export default function ProductDetails({ product }: { product: Product }) {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {relatedProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/products/${product.id}`}
-                  className="group border-neon/30 hover:border-neon hover:shadow-neon/50 relative overflow-hidden rounded-lg border bg-black/50 backdrop-blur transition hover:shadow-lg"
-                >
-                  <div className="bg-neon absolute inset-0 opacity-0 mix-blend-screen transition group-hover:opacity-10" />
-
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      width={200}
-                      height={288}
-                      src={product.image ?? "/placeholder.svg"}
-                      alt={product.name}
-                      className="h-full w-full object-cover transition group-hover:scale-110"
-                    />
-                  </div>
-
-                  <div className="relative p-4">
-                    <h3 className="mb-2 text-lg font-bold text-white">
-                      {product.name}
-                    </h3>
-                    <span className="text-neon text-2xl font-black">
-                      {product.priceFormatted}
-                    </span>
-                  </div>
-                </Link>
+                <ProductCard key={product._id} product={product} />
               ))}
             </div>
           </div>
         </section>
-      )} */}
+      )}
 
       <Footer />
     </div>
