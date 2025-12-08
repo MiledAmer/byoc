@@ -1,26 +1,30 @@
-"use client"
+"use client";
 
-import { useCart } from "@/lib/store"
-import { CartItemRow } from "@/components/cart-item-row"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ShoppingBag, ArrowLeft, Trash2 } from "lucide-react"
+import { useCart } from "@/lib/store";
+import { CartItemRow } from "@/components/cart-item-row";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ShoppingBag, ArrowLeft, Trash2 } from "lucide-react";
 
 export default function CartPage() {
-  const { items, getTotal, clearCart} = useCart()
-  const total = getTotal()
-  const itemCount = items.length
+  const { items, getTotal, clearCart } = useCart();
+  const total = getTotal();
+  const itemCount = items.length;
 
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-black pt-24 pb-16">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="text-center py-16">
-            <ShoppingBag size={64} className="mx-auto text-neon/30 mb-6" />
-            <h1 className="text-4xl font-black text-white mb-4 glow-text">Your Cart is Empty</h1>
-            <p className="text-white/50 mb-8">Time to add some chaos to your wardrobe</p>
+          <div className="py-16 text-center">
+            <ShoppingBag size={64} className="text-neon/30 mx-auto mb-6" />
+            <h1 className="glow-text mb-4 text-4xl font-black text-white">
+              Your Cart is Empty
+            </h1>
+            <p className="mb-8 text-white/50">
+              Time to add some chaos to your wardrobe
+            </p>
             <Link href="/products">
-              <Button className="bg-neon text-black hover:bg-neon/80 font-bold uppercase tracking-wider">
+              <Button className="bg-neon hover:bg-neon/80 font-bold tracking-wider text-black uppercase">
                 <ArrowLeft size={20} className="mr-2" />
                 Continue Shopping
               </Button>
@@ -28,7 +32,7 @@ export default function CartPage() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -36,7 +40,9 @@ export default function CartPage() {
       <div className="mx-auto max-w-7xl px-4">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-black text-neon mb-2 glow-text">Shopping Cart</h1>
+          <h1 className="text-neon glow-text mb-2 text-4xl font-black">
+            Shopping Cart
+          </h1>
           <p className="text-white/50">
             {itemCount} {itemCount === 1 ? "item" : "items"} in your cart
           </p>
@@ -45,7 +51,7 @@ export default function CartPage() {
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Cart Items */}
           <div className="lg:col-span-2">
-            <div className="rounded-lg border border-neon/30 bg-black/50 p-6 backdrop-blur-sm">
+            <div className="border-neon/30 rounded-lg border bg-black/50 p-6 backdrop-blur-sm">
               <div className="space-y-4">
                 {items.map((item) => (
                   <CartItemRow key={item.id} item={item} />
@@ -53,13 +59,13 @@ export default function CartPage() {
               </div>
 
               {/* Clear Cart */}
-              <div className="mt-6 pt-6 border-t border-neon/20">
+              <div className="border-neon/20 mt-6 border-t pt-6">
                 <Button
                   onClick={clearCart}
                   variant="outline"
-                  className="border-red-500/50 text-red-500 hover:bg-red-500/10 hover:border-red-500 bg-transparent"
+                  className="border-red-500/50 bg-transparent text-red-500 hover:border-red-500 hover:bg-red-500/10"
                 >
-                  <Trash2 className="w-4 h-4 mr-2" />
+                  <Trash2 className="mr-2 h-4 w-4" />
                   Clear Cart
                 </Button>
               </div>
@@ -68,10 +74,12 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="rounded-lg border border-neon/30 bg-black/50 p-6 backdrop-blur-sm sticky top-24">
-              <h2 className="text-2xl font-black text-white mb-6 glow-text-sm">Order Summary</h2>
+            <div className="border-neon/30 sticky top-24 rounded-lg border bg-black/50 p-6 backdrop-blur-sm">
+              <h2 className="glow-text-sm mb-6 text-2xl font-black text-white">
+                Order Summary
+              </h2>
 
-              <div className="space-y-3 mb-6">
+              <div className="mb-6 space-y-3">
                 <div className="flex justify-between text-white/70">
                   <span>Subtotal</span>
                   <span className="font-semibold">${total.toFixed(2)}</span>
@@ -86,20 +94,27 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <div className="border-t border-neon/20 pt-4 mb-6">
+              <div className="border-neon/20 mb-6 border-t pt-4">
                 <div className="flex justify-between text-xl font-black">
                   <span className="text-white">Total</span>
-                  <span className="text-neon glow-text">TND{total.toFixed(2)}</span>
+                  <span className="text-neon glow-text">
+                    TND{total.toFixed(2)}
+                  </span>
                 </div>
               </div>
 
-              <Button className="w-full bg-neon text-black hover:bg-neon/80 font-bold uppercase tracking-wider mb-3 py-6 text-lg">
-                {/* Proceed to Checkout */}
-                Payment on Delivery
+              <Button className="bg-neon hover:bg-neon/80 mb-3 w-full py-6 text-lg font-bold tracking-wider text-black uppercase">
+                <Link href="/checkout">
+                  {/* Proceed to Checkout */}
+                  Payment on Delivery
+                </Link>
               </Button>
 
               <Link href="/products">
-                <Button variant="outline" className="w-full border-neon/30 text-neon hover:bg-neon/10 bg-transparent">
+                <Button
+                  variant="outline"
+                  className="border-neon/30 text-neon hover:bg-neon/10 w-full bg-transparent"
+                >
                   <ArrowLeft size={20} className="mr-2" />
                   Continue Shopping
                 </Button>
@@ -109,5 +124,5 @@ export default function CartPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

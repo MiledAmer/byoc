@@ -39,7 +39,22 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable}`}>
       <body>
         {children}
-        <Toaster />
+        <Toaster
+          theme="dark"
+          className="toaster group"
+          toastOptions={{
+            classNames: {
+              toast: "group toast bg-black border-neon/30 text-white",
+              description: "text-white/70",
+              actionButton: "bg-neon text-black",
+              cancelButton: "bg-white/10 text-white",
+              error: "border-red-500/50 text-red-500",
+              success: "border-neon text-neon",
+              warning: "border-yellow-500/50 text-yellow-500",
+              info: "border-blue-500/50 text-blue-500",
+            },
+          }}
+        />
       </body>
     </html>
   );
