@@ -66,7 +66,7 @@ export function VariantPreviewInput(props: ObjectInputProps) {
         <Card padding={3} tone="primary" radius={2}>
           <Grid columns={3} gap={4}>
             <div>
-              <p className="text-sm text-gray-500">Weight</p>
+              <p className="text-sm text-gray-500">Size</p>
               <Text>{currentValue.weight}</Text>
             </div>
             <div>

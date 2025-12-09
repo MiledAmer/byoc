@@ -68,9 +68,9 @@ export default defineType({
             }),
             defineField({
               name: "weight",
-              title: "Weight",
+              title: "Size",
               type: "string",
-              description: "Snapshot of the weight at time of order",
+              description: "Snapshot of the size at time of order",
             }),
             defineField({
               name: "quantity",

@@ -38,7 +38,7 @@ export default defineType({
     }),
     defineField({
       name: "variants",
-      title: "Product Variants (Weight, Price, Availability)",
+      title: "Product Variants (Size, Price, Availability)",
       type: "array",
       of: [
         {
@@ -46,7 +46,7 @@ export default defineType({
           fields: [
             {
               name: "weight",
-              title: "Weight",
+              title: "Size",
               type: "string",
               placeholder: "e.g., 500g, 1kg",
               validation: (Rule) => Rule.required(),
@@ -90,7 +90,7 @@ export default defineType({
       fields: [
         {
           name: "weight",
-          title: "Weight",
+          title: "Size",
           type: "string",
           placeholder: "e.g., 500g, 1kg",
           validation: (Rule) => Rule.required(),
