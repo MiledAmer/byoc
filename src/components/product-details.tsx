@@ -41,16 +41,15 @@ export default function ProductDetails({
             <div className="border-neon/30 relative aspect-square overflow-hidden rounded-lg border bg-black/50 backdrop-blur">
               <div className="bg-neon absolute inset-0 opacity-5 mix-blend-screen" />
               <Image
-                width={200}
-                height={288}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 src={
                   product.image?.asset
-                    ? (urlFor(product.image)?.url() ??
-                      "/black-baseball-cap-neon-trim.jpg")
-                    : "/black-baseball-cap-neon-trim.jpg"
+                    ? (urlFor(product.image)?.url() ?? "/placeholder.svg")
+                    : "/placeholder.svg"
                 }
                 alt={product.title.en}
-                className="h-full w-full object-cover"
+                className="object-cover transition group-hover:scale-110"
               />
             </div>
 
@@ -60,10 +59,15 @@ export default function ProductDetails({
                 <p className="mb-2 text-sm tracking-wider text-white/60 uppercase">
                   {product.category.name.en}
                 </p>
-                <h1 className=" text-5xl font-black tracking-tighter text-white md:text-6xl">
+                <h1 className="text-5xl font-black tracking-tighter text-white md:text-6xl">
                   {product.title.en}
                 </h1>
-                {product.reference && <h2 className="text-white/70 mb-4"> Reference: {product.reference}</h2>}
+                {product.reference && (
+                  <h2 className="mb-4 text-white/70">
+                    {" "}
+                    Reference: {product.reference}
+                  </h2>
+                )}
                 <p className="text-neon glow-text text-4xl font-black">
                   {selectedVariant.price.toFixed(2)} TND
                 </p>

@@ -29,16 +29,16 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <div className="relative h-64 overflow-hidden md:h-72">
           <Image
-            width={200}
-            height={200}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={
               product.image?.asset
                 ? (urlFor(product.image)?.url() ??
-                  "/black-baseball-cap-neon-trim.jpg")
-                : "/black-baseball-cap-neon-trim.jpg"
+                  "/placeholder.svg")
+                : "/placeholder.svg"
             }
             alt={product.title.en}
-            className="h-full w-full object-cover transition group-hover:scale-110"
+            className="object-cover transition group-hover:scale-110"
           />
         </div>
 
