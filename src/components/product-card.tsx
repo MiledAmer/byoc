@@ -8,7 +8,13 @@ import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  priority = false,
+}: {
+  product: Product;
+  priority?: boolean;
+}) {
   const { addItem } = useCart();
   const handleAddToCart = () => {
     addItem(product, product.selectedVariant, 1);
@@ -30,7 +36,9 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="relative h-64 overflow-hidden md:h-72">
           <Image
             fill
+            priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            {...(priority ? { fetchPriority: "high" } : {})}
             src={
               product.image?.asset
                 ? (urlFor(product.image)?.url() ??

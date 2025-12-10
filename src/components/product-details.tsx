@@ -42,7 +42,8 @@ export default function ProductDetails({
               <div className="bg-neon absolute inset-0 opacity-5 mix-blend-screen" />
               <Image
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 src={
                   product.image?.asset
                     ? (urlFor(product.image)?.url() ?? "/placeholder.svg")

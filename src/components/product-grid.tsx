@@ -13,8 +13,12 @@ async function FeaturedProducts() {
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {products.map((product) => (
-        <ProductCard key={product._id} product={product} />
+      {products.map((product, index) => (
+        <ProductCard
+          key={product._id}
+          product={product}
+          priority={index < 6}
+        />
       ))}
     </div>
   );
