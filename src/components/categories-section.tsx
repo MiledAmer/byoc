@@ -2,6 +2,7 @@
 
 import type { Category } from "@/sanity/types/categories";
 import { useRouter, useSearchParams } from "next/navigation";
+import { X } from "lucide-react";
 
 export default function CategoriesSection({
   categories,
@@ -11,23 +12,49 @@ export default function CategoriesSection({
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") ?? "All";
+  const searchQuery = searchParams.get("search");
 
   const handleCategoryClick = (categorySlug: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    
-    if (selectedCategory === categorySlug) {
+
+    if (selectedCategory === categorySlug || categorySlug === "All") {
       params.delete("category");
     } else {
       params.set("category", categorySlug);
     }
-    
+
     router.push(`?${params.toString()}`, { scroll: false });
   };
-  
+
+  const handleClearSearch = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("search");
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <section className="border-neon/20 sticky top-0 z-40 border-b bg-black/90 px-4 py-4 backdrop-blur-md">
       <div className="mx-auto max-w-7xl">
         <div className="flex gap-2 overflow-x-auto">
+          {searchQuery && (
+            <button
+              onClick={handleClearSearch}
+              className="flex items-center gap-2 rounded-lg border border-neon/30 bg-black px-4 py-2 text-sm font-bold tracking-wider text-neon uppercase transition hover:border-neon hover:text-white md:hidden whitespace-nowrap"
+            >
+              <span>&quot;{searchQuery}&quot;</span>
+              <X size={14} />
+            </button>
+          )}
+          <button
+            onClick={() => handleCategoryClick("All")}
+            className={`rounded-lg px-6 py-2 text-sm font-bold tracking-wider whitespace-nowrap uppercase transition ${
+              selectedCategory === "All"
+                ? "bg-neon shadow-neon/50 text-black shadow-lg"
+                : "border-neon/30 hover:text-neon hover:border-neon border bg-black text-white/70"
+            }`}
+          >
+            All
+          </button>
           {categories.map((category) => (
             <button
               key={category._id}

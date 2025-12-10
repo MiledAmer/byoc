@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,14 +11,21 @@ import {
 } from "@/components/ui/popover";
 
 export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search') ?? '';
+  const [searchQuery, setSearchQuery] = useState(search);
   const router = useRouter();
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    const params = new URLSearchParams(searchParams.toString());
+
     if (searchQuery.trim()) {
-      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
+      params.set("search", searchQuery.trim());
+    } else {
+      params.delete("search");
     }
+
+    router.push(`/products?${params.toString()}`);
   };
 
   const SearchInput = (Mobile: boolean) => (
@@ -54,7 +61,9 @@ export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
           <Search size={18} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent sideOffset={25} className="p-0 w-screen">{SearchInput(Mobile)}</PopoverContent>
+      <PopoverContent sideOffset={25} className="w-screen p-0">
+        {SearchInput(Mobile)}
+      </PopoverContent>
     </Popover>
   );
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/lib/store";
@@ -21,7 +21,9 @@ export default function Header() {
           </div>
         </Link>
 
-        <SearchBar />
+        <Suspense>
+          <SearchBar />
+        </Suspense>
 
         {/* Desktop Menu */}
         <nav className="hidden gap-8 md:flex">
@@ -43,7 +45,9 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <SearchBar Mobile={true} />
+          <Suspense>
+            <SearchBar Mobile={true} />
+          </Suspense>
           <button className="relative">
             <Link href="/cart" aria-label="View cart">
               <ShoppingBag size={20} className="text-neon" />
