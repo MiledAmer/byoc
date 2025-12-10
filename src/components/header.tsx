@@ -21,7 +21,11 @@ export default function Header() {
           </div>
         </Link>
 
-        <Suspense>
+        <Suspense
+          fallback={
+            <div className="mx-4 hidden h-10 max-w-md flex-1 rounded-md border border-neon/30 bg-black/50 md:flex" />
+          }
+        >
           <SearchBar />
         </Suspense>
 
@@ -45,7 +49,9 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <Suspense>
+          <Suspense
+            fallback={<div className="h-10 w-10 md:hidden" />}
+          >
             <SearchBar Mobile={true} />
           </Suspense>
           <button className="relative">

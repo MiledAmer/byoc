@@ -163,7 +163,8 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
         style={{
           position: 'absolute',
           inset: 0,
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          zIndex: 9999
         }}
       />
       {children}

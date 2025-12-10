@@ -1,7 +1,6 @@
 import ClickSpark from "@/components/ClickSpark";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Toaster } from "sonner";
