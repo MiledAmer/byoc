@@ -12,7 +12,7 @@ import {
 
 export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
   const searchParams = useSearchParams();
-  const search = searchParams.get('search') ?? '';
+  const search = searchParams.get("search") ?? "";
   const [searchQuery, setSearchQuery] = useState(search);
   const router = useRouter();
   const handleSearch = (e: React.FormEvent) => {
@@ -41,12 +41,11 @@ export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
           placeholder="Search products..."
           className="border-neon/30 focus:border-neon focus:ring-neon w-full rounded-md border bg-black/50 px-4 py-2 pr-10 text-sm text-white transition-all placeholder:text-white/40 focus:ring-1 focus:outline-none"
         />
-        <button
-          type="submit"
+        <span
           className="text-neon absolute top-1/2 right-2 -translate-y-1/2 transition-all hover:drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]"
         >
           <Search size={18} />
-        </button>
+        </span>
       </div>
     </form>
   );
@@ -57,9 +56,7 @@ export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
         asChild
         className="text-neon transition-all hover:drop-shadow-[0_0_10px_rgba(0,255,0,0.5)] md:hidden"
       >
-        <Button variant="ghost">
-          <Search size={18} />
-        </Button>
+        <Search size={18} />
       </PopoverTrigger>
       <PopoverContent sideOffset={25} className="w-screen p-0">
         {SearchInput(Mobile)}
