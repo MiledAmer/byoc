@@ -1,17 +1,16 @@
-import ProductCard from "@/components/product-card";
-import {
-  getCategoriesWithSubcategories,
-  getFilteredProducts,
-} from "@/sanity/sanity-utils";
+import { getCategoriesWithSubcategories } from "@/sanity/sanity-utils";
 import CategoriesSection from "@/components/categories-section";
 import { Suspense } from "react";
+import ProductList from "@/components/product-list";
+import SectionLoader from "@/components/section-loader";
 
-export default async function ProductsPage({searchParams}: {searchParams: Promise<{category?: string, search?: string}>}) {
-  // const [selectedCategory, setSelectedCategory] = useState("All");
-  const {category, search} = await searchParams;
-  const data = await getFilteredProducts({ categorySlug: category, search });
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; search?: string }>;
+}) {
+  const { category, search } = await searchParams;
   const categories = await getCategoriesWithSubcategories();
-  const filteredProducts = data.products;
 
   return (
     <div className="text-foreground min-h-screen bg-black">
@@ -38,19 +37,17 @@ export default async function ProductsPage({searchParams}: {searchParams: Promis
       {/* Products Grid */}
       <section className="relative min-h-screen bg-black px-4 py-16">
         <div className="bg-neon absolute top-1/3 left-1/4 h-80 w-80 rounded-full opacity-10 mix-blend-screen blur-3xl" />
-
         <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="mb-8">
-            <p className="text-white/60">
-              Showing {filteredProducts.length} products
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
+          <Suspense
+            key={`${category}-${search}`}
+            fallback={
+              <div className="flex justify-center py-20">
+                <SectionLoader />
+              </div>
+            }
+          >
+            <ProductList category={category} search={search} />
+          </Suspense>
         </div>
       </section>
     </div>
