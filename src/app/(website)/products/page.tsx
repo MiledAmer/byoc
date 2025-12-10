@@ -1,6 +1,3 @@
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-
 import ProductCard from "@/components/product-card";
 import {
   getCategoriesWithSubcategories,
@@ -18,8 +15,6 @@ export default async function ProductsPage() {
 
   return (
     <div className="text-foreground min-h-screen bg-black">
-      <Header />
-
       {/* Hero Section */}
       <section className="border-neon/20 relative border-b bg-black px-4 py-16">
         <div className="bg-neon absolute top-1/2 right-1/4 h-96 w-96 rounded-full opacity-5 mix-blend-screen blur-3xl" />
@@ -58,8 +53,6 @@ export default async function ProductsPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

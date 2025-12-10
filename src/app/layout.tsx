@@ -1,32 +1,5 @@
-import ClickSpark from "@/components/ClickSpark";
 import "@/styles/globals.css";
-
-import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-import { Toaster } from "sonner";
-
-export const metadata: Metadata = {
-  title: "BYOC - Buy Your Own Clothes",
-  description: "High-end techwear and editorial fashion. Identity unknown.",
-  generator: "v0.app",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
-};
 
 const geist = Geist({
   subsets: ["latin"],
@@ -38,18 +11,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>
-        <ClickSpark
-          sparkColor="#fff"
-          sparkSize={10}
-          sparkRadius={15}
-          sparkCount={8}
-          duration={400}
-        >
-          {children}
-          <Toaster theme="dark" />
-        </ClickSpark>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

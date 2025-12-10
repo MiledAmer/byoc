@@ -1,6 +1,4 @@
 "use client";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { ShoppingCart, Minus, Plus } from "lucide-react";
 
 import { useState } from "react";
@@ -33,8 +31,6 @@ export default function ProductDetails({
 
   return (
     <div className="text-foreground min-h-screen bg-black">
-      <Header />
-
       {/* Product Detail */}
       <section className="relative px-4 py-16">
         <div className="bg-neon absolute top-1/4 right-1/3 h-96 w-96 rounded-full opacity-5 mix-blend-screen blur-3xl" />
@@ -159,8 +155,6 @@ export default function ProductDetails({
           </div>
         </section>
       )}
-
-      <Footer />
     </div>
   );
 }
