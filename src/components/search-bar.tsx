@@ -3,7 +3,6 @@
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -41,9 +40,7 @@ export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
           placeholder="Search products..."
           className="border-neon/30 focus:border-neon focus:ring-neon w-full rounded-md border bg-black/50 px-4 py-2 pr-10 text-sm text-white transition-all placeholder:text-white/40 focus:ring-1 focus:outline-none"
         />
-        <span
-          className="text-neon absolute top-1/2 right-2 -translate-y-1/2 transition-all hover:drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]"
-        >
+        <span className="text-neon absolute top-1/2 right-2 -translate-y-1/2">
           <Search size={18} />
         </span>
       </div>
@@ -52,11 +49,10 @@ export default function SearchBar({ Mobile = false }: { Mobile?: boolean }) {
 
   const mobile = (
     <Popover>
-      <PopoverTrigger
-        asChild
-        className="text-neon transition-all hover:drop-shadow-[0_0_10px_rgba(0,255,0,0.5)] md:hidden"
-      >
-        <Search size={18} />
+      <PopoverTrigger asChild>
+        <button className="text-neon md:hidden" aria-label="Search">
+          <Search size={18} />
+        </button>
       </PopoverTrigger>
       <PopoverContent sideOffset={25} className="w-screen p-0">
         {SearchInput(Mobile)}

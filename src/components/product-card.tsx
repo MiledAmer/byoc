@@ -51,12 +51,13 @@ export default function ProductCard({ product }: { product: Product }) {
             <span className="text-neon text-2xl font-black">
               {product.selectedVariant.price.toFixed(2)}TND
             </span>
-            <button
+            <span
               className="bg-neon/20 hover:bg-neon text-neon border-neon rounded-lg border p-2 transition hover:text-black"
               onClick={handleAddToCart}
+              aria-label="Add to cart"
             >
               <ShoppingCart size={18} />
-            </button>
+            </span>
           </div>
         </div>
       </div>
