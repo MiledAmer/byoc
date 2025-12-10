@@ -5,15 +5,6 @@ import type { Category, Subcategory } from "./types/categories";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-
-interface ProductFilters {
-  isTopSale?: boolean;
-  categorySlug?: string;
-  subcategorySlug?: string;
-  page?: number;
-  pageSize?: number;
-}
-
 interface PaginatedProducts {
   products: Product[];
   total: number;
@@ -22,10 +13,19 @@ interface PaginatedProducts {
   totalPages: number;
 }
 
+interface ProductFilters {
+  isTopSale?: boolean;
+  search?: string;
+  categorySlug?: string;
+  subcategorySlug?: string;
+  page?: number;
+  pageSize?: number;
+}
+
 export async function getFilteredProducts(
   filters: ProductFilters = {},
 ): Promise<PaginatedProducts> {
-  const { categorySlug, subcategorySlug, page = 1, pageSize = 12 } = filters;
+  const { categorySlug, subcategorySlug, page = 1, pageSize = 12, search } = filters;
 
   // Calculate pagination
   const start = (page - 1) * pageSize;
@@ -36,6 +36,10 @@ export async function getFilteredProducts(
 
   if (filters.isTopSale) {
     filterConditions += ` && isTopSale == true`;
+  }
+
+  if (search) {
+    filterConditions += ` && (title.en match "*${search}*" || title.fr match "*${search}*" || title.ar match "*${search}*" || reference match "*${search}*")`;
   }
 
   if (categorySlug) {
@@ -110,6 +114,7 @@ export async function getProductByID(id: string): Promise<Product | null> {
     *[_type == "product" && _id == $id][0] {
       _id,
       title,
+      reference,
       description,
       variants,
       image,
@@ -161,7 +166,9 @@ export function getTranslatedSubcategoryName(
   }
 }
 
-export function urlFor(source: SanityImageSource): ReturnType<typeof imageUrlBuilder> | null {
+export function urlFor(
+  source: SanityImageSource,
+): ReturnType<typeof imageUrlBuilder> | null {
   try {
     return imageUrlBuilder(client).image(source);
   } catch {

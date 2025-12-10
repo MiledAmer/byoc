@@ -4,9 +4,11 @@ import { useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/lib/store";
+import SearchBar from "./search-bar";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+
   const { items } = useCart();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -18,6 +20,8 @@ export default function Header() {
             <span className="text-neon glow-text">BYOC</span>
           </div>
         </Link>
+
+        <SearchBar />
 
         {/* Desktop Menu */}
         <nav className="hidden gap-8 md:flex">
@@ -39,6 +43,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
+          <SearchBar Mobile={true} />
           <button className="relative">
             <Link href="/cart" aria-label="View cart">
               <ShoppingBag size={20} className="text-neon" />
@@ -47,7 +52,6 @@ export default function Header() {
               </span>
             </Link>
           </button>
-
           <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

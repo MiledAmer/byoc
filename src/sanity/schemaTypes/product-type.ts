@@ -9,10 +9,15 @@ export default defineType({
   icon: PackageSearch,
   fields: [
     defineField({
-      name:"isTopSale",
-      title:"Is Top Sale",
-      type:"boolean",
-      initialValue:false,
+      name: "isTopSale",
+      title: "Is Top Sale",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
+      name: "reference",
+      title: "Reference",
+      type: "string",
     }),
     defineField({
       name: "title",
@@ -108,7 +113,7 @@ export default defineType({
           initialValue: true,
         },
       ],
-      components:{
+      components: {
         input: VariantPreviewInput,
       },
       hidden: ({ document }) => {
@@ -120,17 +125,18 @@ export default defineType({
       validation: (Rule) =>
         Rule.required().custom((selectedVariant, context) => {
           // if (!selectedVariant) return true;
-          
+
           const variantKey = (selectedVariant as { _key?: string })?._key;
           if (!variantKey) return "Selected variant must have a valid key.";
-          
-          const variants = (context.document?.variants as Array<{ _key?: string }>) ?? [];
+
+          const variants =
+            (context.document?.variants as Array<{ _key?: string }>) ?? [];
           const variantExists = variants.some((v) => v._key === variantKey);
-          
+
           if (!variantExists) {
             return "Selected variant does not exist in the variants list. Please select a valid variant.";
           }
-          
+
           return true;
         }),
     }),

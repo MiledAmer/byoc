@@ -6,10 +6,10 @@ import {
 import CategoriesSection from "@/components/categories-section";
 import { Suspense } from "react";
 
-export default async function ProductsPage() {
+export default async function ProductsPage({searchParams}: {searchParams: Promise<{category?: string, search?: string}>}) {
   // const [selectedCategory, setSelectedCategory] = useState("All");
-
-  const data = await getFilteredProducts();
+  const {category, search} = await searchParams;
+  const data = await getFilteredProducts({ categorySlug: category, search });
   const categories = await getCategoriesWithSubcategories();
   const filteredProducts = data.products;
 

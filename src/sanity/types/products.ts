@@ -1,5 +1,6 @@
 export type Product = {
   _id: string;
+  reference?: string;
   title: {
     en: string;
     fr: string;

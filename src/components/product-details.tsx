@@ -60,9 +60,10 @@ export default function ProductDetails({
                 <p className="mb-2 text-sm tracking-wider text-white/60 uppercase">
                   {product.category.name.en}
                 </p>
-                <h1 className="mb-4 text-5xl font-black tracking-tighter text-white md:text-6xl">
+                <h1 className=" text-5xl font-black tracking-tighter text-white md:text-6xl">
                   {product.title.en}
                 </h1>
+                {product.reference && <h2 className="text-white/70 mb-4"> Reference: {product.reference}</h2>}
                 <p className="text-neon glow-text text-4xl font-black">
                   {selectedVariant.price.toFixed(2)} TND
                 </p>
