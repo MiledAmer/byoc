@@ -1,7 +1,6 @@
-"use client";
-
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import HeroOrbs from "./hero-orbs";
 
 export default function Hero() {
   return (
@@ -29,8 +28,7 @@ export default function Hero() {
       </div>
 
       {/* Neon glow background elements */}
-      <div className="bg-neon absolute top-20 right-0 h-96 w-96 rounded-full opacity-20 mix-blend-screen blur-3xl" />
-      <div className="bg-neon absolute bottom-0 left-0 h-96 w-96 rounded-full opacity-10 mix-blend-screen blur-3xl" />
+      <HeroOrbs />
 
       {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center">
@@ -50,9 +48,9 @@ export default function Hero() {
 
           <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <Link href="/products">
-            <button className="text-neon border-neon hover:bg-neon/10 rounded-lg border-2 px-8 py-3 font-bold tracking-wider uppercase transition">
-              Shop Now
-            </button>
+              <button className="text-neon border-neon hover:bg-neon/10 rounded-lg border-2 px-8 py-3 font-bold tracking-wider uppercase transition">
+                Shop Now
+              </button>
             </Link>
           </div>
         </div>
