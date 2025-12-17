@@ -82,7 +82,7 @@ export default function CartPage() {
               <div className="mb-6 space-y-3">
                 <div className="flex justify-between text-white/70">
                   <span>Subtotal</span>
-                  <span className="font-semibold">${total.toFixed(2)}</span>
+                  <span className="font-semibold">TND {total.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-white/70">
                   <span>Shipping</span>
@@ -98,7 +98,7 @@ export default function CartPage() {
                 <div className="flex justify-between text-xl font-black">
                   <span className="text-white">Total</span>
                   <span className="text-neon glow-text">
-                    TND{total.toFixed(2)}
+                    TND {total.toFixed(2)}
                   </span>
                 </div>
               </div>

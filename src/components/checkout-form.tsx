@@ -95,7 +95,7 @@ export function CheckoutForm() {
               <FormLabel className="text-white">Full Name</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="John Doe"
+                  placeholder="Foulen Ben Foulen"
                   className="border-neon/30 focus:border-neon bg-black/50 text-white placeholder:text-white/30"
                   {...field}
                 />
@@ -114,7 +114,7 @@ export function CheckoutForm() {
                 <FormLabel className="text-white">Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="john@example.com"
+                    placeholder="foulenBenFoulen@example.com"
                     type="email"
                     className="border-neon/30 focus:border-neon bg-black/50 text-white placeholder:text-white/30"
                     {...field}
@@ -133,7 +133,7 @@ export function CheckoutForm() {
                 <FormLabel className="text-white">Phone Number</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="+216 22 345 678"
                     className="border-neon/30 focus:border-neon bg-black/50 text-white placeholder:text-white/30"
                     {...field}
                   />
@@ -152,7 +152,7 @@ export function CheckoutForm() {
               <FormLabel className="text-white">Shipping Address</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="123 Main St, Apt 4B, New York, NY 10001"
+                  placeholder="Tunisia, Tunis 1002, rue de la paix, appartement 12"
                   className="border-neon/30 focus:border-neon min-h-[100px] resize-none bg-black/50 text-white placeholder:text-white/30"
                   {...field}
                 />

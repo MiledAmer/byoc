@@ -104,7 +104,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-neon text-sm font-bold">
-                        ${(item.variant.price * item.quantity).toFixed(2)}
+                        TND {(item.variant.price * item.quantity).toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ export default function CheckoutPage() {
               <div className="mb-6 space-y-3">
                 <div className="flex justify-between text-white/70">
                   <span>Subtotal ({itemCount} items)</span>
-                  <span className="font-semibold">${total.toFixed(2)}</span>
+                  <span className="font-semibold">TND {total.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-white/70">
                   <span>Shipping</span>
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-white/70">
                   <span>Tax</span>
-                  <span className="font-semibold">$0.00</span>
+                  <span className="font-semibold">TND 0.00</span>
                 </div>
               </div>
 
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
                 <div className="flex justify-between text-xl font-black">
                   <span className="text-white">Total</span>
                   <span className="text-neon glow-text">
-                    ${total.toFixed(2)}
+                    TND {total.toFixed(2)}
                   </span>
                 </div>
               </div>
