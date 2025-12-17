@@ -41,7 +41,17 @@ export default function RootLayout({
     >
       <Header />
       {children}
-      <Toaster theme="dark" />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: "black",
+            color: "#00ff00",
+            border: "1px solid #00ff00",
+          },
+          className: "class",
+        }}
+      />
       <Footer />
     </ClickSpark>
   );
