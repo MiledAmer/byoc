@@ -11,8 +11,6 @@ export default async function ProductList({
   search?: string;
   page?: number;
 }) {
-
-  console.log("Category:", category, "Search:", search, "Page:", page);
   const PAGESIZE = 9;
   const { products, totalPages, total } = await getFilteredProducts({
     categorySlug: category,
