@@ -1,8 +1,9 @@
 "use client";
-import { ShoppingCart, Minus, Plus } from "lucide-react";
+import { ShoppingCart, Minus, Plus, Zap } from "lucide-react";
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type { Product, ProductVariant } from "@/sanity/types/products";
 import { useCart } from "@/lib/store";
 import { urlFor } from "@/sanity/sanity-utils";
@@ -17,6 +18,7 @@ export default function ProductDetails({
   relatedProducts: Product[];
 }) {
   const { addItem } = useCart();
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
 
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(
@@ -26,6 +28,13 @@ export default function ProductDetails({
     if (selectedVariant) {
       addItem(product, selectedVariant, quantity);
       toast.success("Added to cart!");
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (selectedVariant) {
+      addItem(product, selectedVariant, quantity);
+      router.push("/checkout");
     }
   };
 
@@ -124,21 +133,34 @@ export default function ProductDetails({
                 </div>
               </div>
 
-              {/* Add to Cart Button */}
-              <button
-                onClick={handleAddToCart}
-                disabled={!selectedVariant}
-                className={`bg-neon flex w-full items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider text-black uppercase transition ${
-                  !selectedVariant
-                    ? "cursor-not-allowed bg-white/10 text-white/30"
-                    : "bg-neon hover:shadow-neon/50 text-black hover:shadow-2xl"
-                }`}
-              >
-                <>
+              {/* Actions */}
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!selectedVariant}
+                  className={`flex-1 flex items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider uppercase transition ${
+                    !selectedVariant
+                      ? "cursor-not-allowed bg-white/10 text-white/30"
+                      : "border-2 border-neon text-neon hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(0,255,0,0.3)]"
+                  }`}
+                >
                   <ShoppingCart size={24} />
                   Add to Cart
-                </>
-              </button>
+                </button>
+
+                <button
+                  onClick={handleBuyNow}
+                  disabled={!selectedVariant}
+                  className={`flex-1 flex items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider uppercase transition ${
+                    !selectedVariant
+                      ? "cursor-not-allowed bg-white/10 text-white/30"
+                      : "bg-neon text-black hover:shadow-[0_0_30px_rgba(0,255,0,0.5)] hover:scale-[1.02]"
+                  }`}
+                >
+                  <Zap size={24} />
+                  Buy Now
+                </button>
+              </div>
             </div>
           </div>
         </div>
