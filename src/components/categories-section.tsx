@@ -17,6 +17,9 @@ export default function CategoriesSection({
   const handleCategoryClick = (categorySlug: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
+    // Reset page to 1 when changing category
+    params.delete("page");
+
     if (selectedCategory === categorySlug || categorySlug === "All") {
       params.delete("category");
     } else {

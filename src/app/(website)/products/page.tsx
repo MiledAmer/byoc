@@ -7,10 +7,11 @@ import SectionLoader from "@/components/section-loader";
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; search?: string }>;
+  searchParams: Promise<{ category?: string; search?: string; page?: string }>;
 }) {
-  const { category, search } = await searchParams;
+  const { category, search, page } = await searchParams;
   const categories = await getCategoriesWithSubcategories();
+  const currentPage = page ? Number(page) : 1;
 
   return (
     <div className="text-foreground min-h-screen bg-black">
@@ -39,14 +40,18 @@ export default async function ProductsPage({
         <div className="bg-neon absolute top-1/3 left-1/4 h-80 w-80 rounded-full opacity-10 mix-blend-screen blur-3xl" />
         <div className="relative z-10 mx-auto max-w-7xl">
           <Suspense
-            key={`${category}-${search}`}
+            key={`${category}-${search}-${currentPage}`}
             fallback={
               <div className="flex justify-center py-20">
                 <SectionLoader />
               </div>
             }
           >
-            <ProductList category={category} search={search} />
+            <ProductList
+              category={category}
+              search={search}
+              page={currentPage}
+            />
           </Suspense>
         </div>
       </section>
