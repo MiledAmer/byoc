@@ -142,7 +142,7 @@ export default defineType({
     }),
     defineField({
       name: "image",
-      title: "Product Image",
+      title: "Preview Product Image",
       type: "image",
       options: {
         hotspot: true,
@@ -155,6 +155,26 @@ export default defineType({
         },
       ],
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "images",
+      title: "Product Images",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative text",
+            },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "category",

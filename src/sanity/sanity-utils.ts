@@ -58,6 +58,7 @@ export async function getFilteredProducts(
       description,
       variants,
       image,
+      images,
       selectedVariant,
       category-> {
         _id,
@@ -118,6 +119,7 @@ export async function getProductByID(id: string): Promise<Product | null> {
       description,
       variants,
       image,
+      images,
       selectedVariant,
       category-> {
         _id,

@@ -19,6 +19,12 @@ export type Product = {
       _type: string;
     };
   };
+  images?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  }[];
   category: {
     _id: string;
     name: {

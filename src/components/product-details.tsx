@@ -2,13 +2,12 @@
 import { ShoppingCart, Minus, Plus, Zap } from "lucide-react";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { Product, ProductVariant } from "@/sanity/types/products";
 import { useCart } from "@/lib/store";
-import { urlFor } from "@/sanity/sanity-utils";
 import { toast } from "sonner";
 import ProductCard from "./product-card";
+import ProductImageGallery from "./product-image-gallery";
 
 export default function ProductDetails({
   product,
@@ -47,21 +46,7 @@ export default function ProductDetails({
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Product Image */}
-            <div className="border-neon/30 relative aspect-square overflow-hidden rounded-lg border bg-black/50 backdrop-blur">
-              <div className="bg-neon absolute inset-0 opacity-5 mix-blend-screen" />
-              <Image
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                src={
-                  product.image?.asset
-                    ? (urlFor(product.image)?.url() ?? "/placeholder.svg")
-                    : "/placeholder.svg"
-                }
-                alt={product.title.en}
-                className="object-cover transition group-hover:scale-110"
-              />
-            </div>
+            <ProductImageGallery product={product} />
 
             {/* Product Info */}
             <div className="space-y-6">
