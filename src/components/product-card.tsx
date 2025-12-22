@@ -24,7 +24,7 @@ export default function ProductCard({
     <Link
       key={product._id}
       href={`/products/${product._id}`}
-      className="group border-neon/30 hover:border-neon hover:shadow-neon/50 relative overflow-hidden rounded-lg border bg-black/50 backdrop-blur transition hover:shadow-lg"
+      className="relative overflow-hidden rounded-lg border bg-black/50 backdrop-blur transition hover:shadow-lg"
     >
       <div
         key={product._id}
@@ -41,8 +41,7 @@ export default function ProductCard({
             {...(priority ? { fetchPriority: "high" } : {})}
             src={
               product.image?.asset
-                ? (urlFor(product.image)?.url() ??
-                  "/placeholder.svg")
+                ? (urlFor(product.image)?.url() ?? "/placeholder.svg")
                 : "/placeholder.svg"
             }
             alt={product.title.en}

@@ -20,6 +20,42 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "image",
+      title: "Preview Product Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: "alt",
+          type: "string",
+          title: "Alternative text",
+        },
+      ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "images",
+      title: "Product Images",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative text",
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: "title",
       title: "Title",
       type: "object",
@@ -139,42 +175,6 @@ export default defineType({
 
           return true;
         }),
-    }),
-    defineField({
-      name: "image",
-      title: "Preview Product Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Alternative text",
-        },
-      ],
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "images",
-      title: "Product Images",
-      type: "array",
-      of: [
-        {
-          type: "image",
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alternative text",
-            },
-          ],
-        },
-      ],
     }),
     defineField({
       name: "category",

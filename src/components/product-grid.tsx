@@ -1,25 +1,64 @@
-import { getFilteredProducts } from "@/sanity/sanity-utils";
+import { getLandingPageTopSales } from "@/sanity/sanity-utils";
 import ProductCard from "./product-card";
 import { Suspense } from "react";
 import SectionLoader from "./section-loader";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 async function FeaturedProducts() {
-  const data = await getFilteredProducts({
-    pageSize: 6,
-  });
-  const products = data.products;
+  const categories = await getLandingPageTopSales();
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {products.map((product, index) => (
-        <ProductCard
-          key={product._id}
-          product={product}
-          priority={index < 6}
-        />
-      ))}
+    <div className="space-y-20">
+      {categories.map(
+        (category) =>
+          category.products &&
+          category.products.length > 0 && (
+            <div key={category._id} className="space-y-8">
+              <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row md:items-end">
+                <h3 className="font-black text-neon glow-text text-4xl">
+                  {category.name.en}
+                </h3>
+                <Link
+                  href={"/products?category=" + category.slug.current}
+                  className="group text-neon flex items-center gap-2 text-sm font-bold tracking-wider uppercase transition hover:text-white hover:drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]"
+                >
+                  See More Products
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {category.products.map((product) => (
+                    <CarouselItem
+                      key={product._id}
+                      className="basis-[85%] md:basis-1/2 lg:basis-1/3"
+                    >
+                      <div className="p-1">
+                        <ProductCard product={product} />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
+          ),
+      )}
     </div>
   );
 }
@@ -40,17 +79,15 @@ export default function ProductGrid() {
             </h2>
             <p className="text-lg text-white/60">Curated chaos for the bold</p>
           </div>
-
-          <Link 
-            href="/products" 
-            className="group flex items-center gap-2 text-sm text-neon font-bold tracking-wider uppercase transition hover:text-white hover:drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]"
-          >
-            See More Products
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
         </div>
 
-        <Suspense fallback={<div className="flex justify-center py-20"><SectionLoader /></div>}>
+        <Suspense
+          fallback={
+            <div className="flex justify-center py-20">
+              <SectionLoader />
+            </div>
+          }
+        >
           <FeaturedProducts />
         </Suspense>
       </div>
