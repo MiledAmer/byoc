@@ -62,8 +62,7 @@ export default function CartPage() {
               <div className="border-neon/20 mt-6 border-t pt-6">
                 <Button
                   onClick={clearCart}
-                  variant="outline"
-                  className="border-red-500/50 bg-transparent text-red-500 hover:border-red-500 hover:bg-red-500/10"
+                  variant="destructive"
                 >
                   <Trash2 className="mr-2 h-4 w-4" />
                   Clear Cart
@@ -113,7 +112,7 @@ export default function CartPage() {
               <Link href="/products">
                 <Button
                   variant="outline"
-                  className="border-neon/30 text-neon hover:bg-neon/10 w-full bg-transparent"
+                  className="border-neon/30 text-neon hover:bg-neon/10 w-full hover:text-white bg-transparent"
                 >
                   <ArrowLeft size={20} className="mr-2" />
                   Continue Shopping
