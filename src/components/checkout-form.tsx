@@ -75,7 +75,7 @@ export function CheckoutForm() {
       const result = await createOrder(orderData)
       clearCart();
       toast.success("Order placed successfully!");
-      router.push(`/checkout/success?orderId=${result.orderId}`);
+      router.push(`/checkout/success?orderId=${result.orderNumber}`);
     } catch (error) {
       console.error(error);
       toast.error("Failed to place order. Please try again.");

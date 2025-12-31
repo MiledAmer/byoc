@@ -24,10 +24,9 @@ function SuccessContent() {
           <div className="bg-neon/10 border border-neon/30 rounded-lg p-6 mb-8 max-w-md mx-auto">
             <h2 className="text-lg font-bold text-white mb-2">What&apos;s Next?</h2>
             <ul className="text-sm text-white/70 text-left space-y-2">
-              <li>✓ Order confirmation email sent</li>
+              <li>✓ Thank you for choosing BYOC!</li>
               <li>✓ We&apos;ll prepare your items for shipping</li>
-              <li>✓ Track your order via email updates</li>
-              <li>✓ Estimated delivery: 3-5 business days</li>
+              <li>✓ Estimated delivery: 1-2 business days</li>
             </ul>
           </div>
 
