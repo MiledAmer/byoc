@@ -73,6 +73,8 @@ export default function ProductImageGallery({
           <>
             <button
               onClick={handlePreviousImage}
+              onMouseEnter={() => setIsZoomed(false)}
+              onMouseLeave={() => setIsZoomed(true)}
               className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 backdrop-blur-sm transition-all hover:bg-neon hover:text-black group-hover:opacity-100"
               aria-label="Previous image"
             >
@@ -80,6 +82,8 @@ export default function ProductImageGallery({
             </button>
             <button
               onClick={handleNextImage}
+              onMouseEnter={() => setIsZoomed(false)}
+              onMouseLeave={() => setIsZoomed(true)}
               className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 backdrop-blur-sm transition-all hover:bg-neon hover:text-black group-hover:opacity-100"
               aria-label="Next image"
             >
