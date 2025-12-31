@@ -16,7 +16,11 @@ export default function ProductCard({
   priority?: boolean;
 }) {
   const { addItem } = useCart();
-  const handleAddToCart = () => {
+  const isOutOfStock = !product.selectedVariant.availability;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isOutOfStock) return;
     addItem(product, product.selectedVariant, 1);
     toast.success("Added to cart!");
   };
@@ -34,6 +38,13 @@ export default function ProductCard({
         <div className="bg-neon absolute inset-0 opacity-0 mix-blend-screen transition group-hover:opacity-10" />
 
         <div className="relative h-64 overflow-hidden md:h-72">
+          {isOutOfStock && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60">
+              <span className="rounded-full bg-red-500/80 px-3 py-1 text-sm font-bold text-white backdrop-blur-sm">
+                Out of Stock
+              </span>
+            </div>
+          )}
           <Image
             fill
             priority={priority}
@@ -58,13 +69,18 @@ export default function ProductCard({
             <span className="text-neon text-2xl font-black">
               {product.selectedVariant.price.toFixed(2)}TND
             </span>
-            <span
-              className="bg-neon/20 hover:bg-neon text-neon border-neon rounded-lg border p-2 transition hover:text-black"
+            <button
+              disabled={isOutOfStock}
+              className={`rounded-lg border p-2 transition ${
+                isOutOfStock
+                  ? "cursor-not-allowed border-gray-600 bg-gray-800 text-gray-500"
+                  : "bg-neon/20 hover:bg-neon text-neon border-neon hover:text-black"
+              }`}
               onClick={handleAddToCart}
               aria-label="Add to cart"
             >
               <ShoppingCart size={18} />
-            </span>
+            </button>
           </div>
         </div>
       </div>

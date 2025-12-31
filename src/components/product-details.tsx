@@ -24,14 +24,14 @@ export default function ProductDetails({
     product.selectedVariant ?? product.variants?.[0],
   );
   const handleAddToCart = () => {
-    if (selectedVariant) {
+    if (selectedVariant?.availability) {
       addItem(product, selectedVariant, quantity);
       toast.success("Added to cart!");
     }
   };
 
   const handleBuyNow = () => {
-    if (selectedVariant) {
+    if (selectedVariant?.availability) {
       addItem(product, selectedVariant, quantity);
       router.push("/checkout");
     }
@@ -86,9 +86,9 @@ export default function ProductDetails({
                         selectedVariant === variant
                           ? "bg-neon shadow-neon/50 text-black shadow-lg"
                           : "border-neon/30 hover:text-neon hover:border-neon border bg-black text-white/70"
-                      }`}
+                      } ${!variant.availability ? "opacity-50" : ""}`}
                     >
-                      {variant.weight}
+                      {variant.weight} {!variant.availability && "(Out of Stock)"}
                     </button>
                   ))}
                 </div>
@@ -122,23 +122,23 @@ export default function ProductDetails({
               <div className="flex flex-col gap-4 sm:flex-row">
                 <button
                   onClick={handleAddToCart}
-                  disabled={!selectedVariant}
+                  disabled={!selectedVariant?.availability}
                   className={`flex-1 flex items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider uppercase transition ${
-                    !selectedVariant
-                      ? "cursor-not-allowed bg-white/10 text-white/30"
+                    !selectedVariant?.availability
+                      ? "cursor-not-allowed bg-gray-800 text-gray-500 border-gray-700 border-2"
                       : "border-2 border-neon text-neon hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(0,255,0,0.3)]"
                   }`}
                 >
                   <ShoppingCart size={24} />
-                  Add to Cart
+                  {!selectedVariant?.availability ? "Out of Stock" : "Add to Cart"}
                 </button>
 
                 <button
                   onClick={handleBuyNow}
-                  disabled={!selectedVariant}
+                  disabled={!selectedVariant?.availability}
                   className={`flex-1 flex items-center justify-center gap-3 rounded-lg py-4 text-lg font-black tracking-wider uppercase transition ${
-                    !selectedVariant
-                      ? "cursor-not-allowed bg-white/10 text-white/30"
+                    !selectedVariant?.availability
+                      ? "cursor-not-allowed bg-gray-800 text-gray-500"
                       : "bg-neon text-black hover:shadow-[0_0_30px_rgba(0,255,0,0.5)] hover:scale-[1.02]"
                   }`}
                 >
