@@ -42,7 +42,7 @@ export default function CategoriesSection({
           {searchQuery && (
             <button
               onClick={handleClearSearch}
-              className="flex items-center gap-2 rounded-lg border border-neon/30 bg-black px-4 py-2 text-sm font-bold tracking-wider text-neon uppercase transition hover:border-neon hover:text-white md:hidden whitespace-nowrap"
+              className="flex items-center gap-2 rounded-lg border border-neon/30 bg-black px-4 py-2 text-sm font-bold tracking-wider text-neon uppercase transition hover:border-neon hover:text-white whitespace-nowrap"
             >
               <span>&quot;{searchQuery}&quot;</span>
               <X size={14} />
